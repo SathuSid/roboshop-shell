@@ -69,7 +69,6 @@ nodejs_setup(){
 
   app_prerequisites
 
-  cd /app
   print_heading "install nodejs dependencies"
   npm install &>>$log_file
   status_check $?
@@ -110,15 +109,6 @@ maven_setup(){
   mv target/$app_name-1.0.jar $app_name.jar &>>$log_file
   status_check $?
 
-  print_heading "install MySQL Client"
-  dnf install mysql -y
-  status_check $?
-
-  for sql_file in schema app-user master-data; do
-    print_heading "Load SQL file $sql_file"
-    mysql -h mysql.siddevsecops.icu -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/$sql_file.sql &>>$log_file
-    status_check $?
-  done
 
   systemd_setup
 }
