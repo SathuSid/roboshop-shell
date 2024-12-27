@@ -8,6 +8,7 @@ echo -e "\e[35m Creating the roboshop user \e[0m"
 useradd roboshop
 
 echo -e "\e[35m Extracting the input for dispatch api \e[0m"
+rm -rf /app
 mkdir /app
 curl -L -o /tmp/dispatch.zip https://roboshop-artifacts.s3.amazonaws.com/dispatch-v3.zip
 cd /app
