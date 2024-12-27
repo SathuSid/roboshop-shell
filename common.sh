@@ -6,15 +6,21 @@ rm -f $log_file
 
 app_prerequisites(){
   print_heading "Creating the roboshop user"
-  useradd roboshop &>>$log_file
-  echo
+  id roboshop &>>$log_file
+  if [ $? -ne 0 ] ; then
+    useradd roboshop &>>$log_file
+  fi
+  status_check $?
 
   print_heading "Extracting the input for dispatch api"
   rm -rf /app &>>$log_file
   mkdir /app &>>$log_file
+  status_check $?
   curl -L -o /tmp/$app_name.zip https://roboshop-artifacts.s3.amazonaws.com/$app_name-v3.zip &>>$log_file
+  status_check $?
   cd /app
   unzip /tmp/$app_name.zip &>>$log_file
+  status_check $?
 }
 
 print_heading(){
