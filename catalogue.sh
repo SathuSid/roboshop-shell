@@ -7,7 +7,7 @@ app_name=catalogue
 nodejs_setup
 
 print_heading "copy MongoDB repo file"
-cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$log_file
+cp $scripts_path/mongo.repo /etc/yum.repos.d/mongo.repo &>>$log_file
 status_check $?
 
 print_heading "install MongoDB"
