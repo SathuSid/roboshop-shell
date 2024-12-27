@@ -39,9 +39,9 @@ status_check(){
 }
 
 systemd_setup(){
-
   print_heading "Copying service file into etc path"
   cp $scripts_path/$app_name.service /etc/systemd/system/$app_name.service &>>$log_file
+  sed -i -e "s/RABBITMQ_PASSWORD/${RABBITMQ_PASSWORD}/" $scripts_path/$app_name.service &>>$log_file
   status_check $?
 
   print_heading "reloading and restarting the service"
@@ -116,7 +116,7 @@ maven_setup(){
 
   for sql_file in schema app-user master-data; do
     print_heading "Load SQL file $sql_file"
-    mysql -h mysql.siddevsecops.icu -uroot -pRoboShop@1 < /app/db/$sql_file.sql &>>$log_file
+    mysql -h mysql.siddevsecops.icu -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/$sql_file.sql &>>$log_file
     status_check $?
   done
 
