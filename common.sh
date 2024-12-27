@@ -41,6 +41,7 @@ status_check(){
 systemd_setup(){
   print_heading "Copying service file into etc path"
   cp $scripts_path/$app_name.service /etc/systemd/system/$app_name.service &>>$log_file
+  status_check $?
   sed -i -e "s/RABBITMQ_PASSWORD/${RABBITMQ_PASSWORD}/" /etc/systemd/system/$app_name.service &>>$log_file
   status_check $?
 
